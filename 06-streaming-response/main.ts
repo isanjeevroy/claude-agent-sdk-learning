@@ -4,6 +4,7 @@ import { query } from "@anthropic-ai/claude-agent-sdk";
 const response = query({
     prompt: 'Tell me a long indian love story',
     options: {
+        // important for streaming response
         includePartialMessages: true,
     }
 })
@@ -11,6 +12,7 @@ const response = query({
 async function main() {
     for await (const message of response) {
 
+        // this type stucture for streaming response
         if (message.type === "stream_event") {
             const event = message.event;
             if (event.type === "content_block_delta") {
